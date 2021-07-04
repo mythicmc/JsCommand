@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
+}
+
+group 'org.sanguineous'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+dependencies {
+    implementation fileTree(dir: "lib", includes: ["*.jar"])
+    compileOnly 'net.md-5:bungeecord-api:1.17-R0.1-SNAPSHOT'
+}
