@@ -1,8 +1,8 @@
-package org.sanguineous.jscommand
+package org.sanguineous.jscommandbungee
 
 import net.md_5.bungee.api.plugin.Plugin
-import org.sanguineous.jscommand.command.JavascriptCommand
-import org.sanguineous.jscommand.command.ReloadCommand
+import org.sanguineous.jscommandbungee.command.JavascriptCommand
+import org.sanguineous.jscommandbungee.command.ReloadCommand
 import java.io.File
 import java.util.*
 

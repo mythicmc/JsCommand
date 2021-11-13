@@ -1,0 +1,12 @@
+name: 'JsCommand'
+version: '1.0.0'
+main: 'org.sanguineous.jscommand.JsCommand'
+api-version: '1.16'
+commands:
+  jsc:
+    description: 'Command for reloading the commands'
+    permission: 'jscommand.reload'
+permissions:
+  'jscommand.reload':
+    description: 'Permission for /jsc reload'
+    default: 'op'
