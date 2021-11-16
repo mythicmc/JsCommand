@@ -1,13 +1,13 @@
-package org.sanguineous.jscommand;
+package org.sanguineous.jscommand.bukkit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.sanguineous.jscommand.command.JavascriptCommand;
-import org.sanguineous.jscommand.command.ReloadCommand;
-import org.sanguineous.jscommand.listener.PlayerLeaveListener;
+import org.sanguineous.jscommand.bukkit.command.JavascriptCommand;
+import org.sanguineous.jscommand.bukkit.command.ReloadCommand;
+import org.sanguineous.jscommand.bukkit.listener.PlayerLeaveListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;

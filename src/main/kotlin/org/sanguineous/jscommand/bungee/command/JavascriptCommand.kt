@@ -1,10 +1,10 @@
-package org.sanguineous.jscommandbungee.command
+package org.sanguineous.jscommand.bungee.command
 
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.connection.ProxiedPlayer
 import net.md_5.bungee.api.plugin.Command
 import org.mozilla.javascript.engine.RhinoScriptEngineFactory
-import org.sanguineous.jscommandbungee.JsCommand
+import org.sanguineous.jscommand.bungee.JsCommand
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 import javax.script.ScriptEngineManager

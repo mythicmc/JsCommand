@@ -1,11 +1,11 @@
-package org.sanguineous.jscommand.command;
+package org.sanguineous.jscommand.bukkit.command;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.mozilla.javascript.engine.RhinoScriptEngineFactory;
-import org.sanguineous.jscommand.JsCommand;
+import org.sanguineous.jscommand.bukkit.JsCommand;
 
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -32,8 +32,6 @@ public class JavascriptCommand extends BukkitCommand {
         engine.put("sender", sender);
         engine.put("plugin", plugin);
         engine.put("Bukkit", Bukkit.class);
-        engine.put("Method", Method.class);
-        engine.put("Field", Field.class);
         engine.put("Class", Class.class);
         engine.put("args", args);
         engine.put("isConsole", !(sender instanceof Player));

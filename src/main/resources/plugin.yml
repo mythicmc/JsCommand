@@ -1,6 +1,6 @@
 name: 'JsCommand'
 version: '1.0.0'
-main: 'org.sanguineous.jscommand.JsCommand'
+main: 'org.sanguineous.jscommand.bukkit.JsCommand'
 api-version: '1.16'
 commands:
   jsc:

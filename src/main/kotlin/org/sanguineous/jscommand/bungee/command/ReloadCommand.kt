@@ -1,9 +1,9 @@
-package org.sanguineous.jscommandbungee.command
+package org.sanguineous.jscommand.bungee.command
 
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.plugin.Command
-import org.sanguineous.jscommandbungee.JsCommand
+import org.sanguineous.jscommand.bungee.JsCommand
 
 class ReloadCommand(private val plugin: JsCommand) : Command("bjsc", "jscommand.reload") {
     override fun execute(sender: CommandSender?, args: Array<String>?) {
