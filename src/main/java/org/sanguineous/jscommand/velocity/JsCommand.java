@@ -8,6 +8,7 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import org.sanguineous.jscommand.velocity.command.JavascriptCommand;
 import org.sanguineous.jscommand.velocity.command.ReloadCommand;
+import org.sanguineous.jscommand.velocity.listener.PlayerLeaveListener;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -21,7 +22,7 @@ public class JsCommand {
     private final ProxyServer server;
     private final Logger logger;
     private final List<JavascriptCommand> commands = new ArrayList<>();
-    private final Map<String, Object> playerData = new HashMap<>();
+    private final HashMap<String, Object> playerData = new HashMap<>();
 
     @Inject
     public JsCommand(ProxyServer server, Logger logger, @DataDirectory Path dataPath) {
@@ -38,6 +39,7 @@ public class JsCommand {
             e.printStackTrace();
         }
         server.getCommandManager().register("vjsc", new ReloadCommand(this));
+        server.getEventManager().register(this, new PlayerLeaveListener(this));
     }
 
     public void loadCommands() throws FileNotFoundException {
@@ -81,7 +83,7 @@ public class JsCommand {
         return logger;
     }
 
-    public Map<String, Object> getPlayerData() {
+    public HashMap<String, Object> getPlayerData() {
         return playerData;
     }
 }

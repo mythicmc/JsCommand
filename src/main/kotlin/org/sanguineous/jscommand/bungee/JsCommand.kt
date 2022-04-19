@@ -3,6 +3,7 @@ package org.sanguineous.jscommand.bungee
 import net.md_5.bungee.api.plugin.Plugin
 import org.sanguineous.jscommand.bungee.command.JavascriptCommand
 import org.sanguineous.jscommand.bungee.command.ReloadCommand
+import org.sanguineous.jscommand.bungee.listener.PlayerLeaveListener
 import java.io.File
 import java.util.*
 
@@ -13,6 +14,7 @@ class JsCommand : Plugin() {
     override fun onEnable() {
         loadCommands()
         proxy.pluginManager.registerCommand(this, ReloadCommand(this))
+        proxy.pluginManager.registerListener(this, PlayerLeaveListener(this))
     }
 
     fun loadCommands() {

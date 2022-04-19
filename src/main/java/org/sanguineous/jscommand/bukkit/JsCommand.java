@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class JsCommand extends JavaPlugin {
-    private final Map<String, Object> playerData = new HashMap<>();
+    private final HashMap<String, Object> playerData = new HashMap<>();
     private final List<JavascriptCommand> commands = new ArrayList<>();
     private final CommandMap commandMap = Bukkit.getCommandMap();
 
@@ -27,7 +27,7 @@ public class JsCommand extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerLeaveListener(this), this);
     }
 
-    public Map<String, Object> getPlayerData() {
+    public HashMap<String, Object> getPlayerData() {
         return playerData;
     }
 
