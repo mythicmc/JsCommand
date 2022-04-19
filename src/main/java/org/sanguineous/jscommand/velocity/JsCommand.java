@@ -13,9 +13,7 @@ import org.slf4j.Logger;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 @Plugin(id = "jscommand", name = "JsCommand", version = "1.0.0")
 public class JsCommand {
@@ -23,6 +21,7 @@ public class JsCommand {
     private final ProxyServer server;
     private final Logger logger;
     private final List<JavascriptCommand> commands = new ArrayList<>();
+    private final Map<String, Object> playerData = new HashMap<>();
 
     @Inject
     public JsCommand(ProxyServer server, Logger logger, @DataDirectory Path dataPath) {
@@ -80,5 +79,9 @@ public class JsCommand {
 
     public Logger getLogger() {
         return logger;
+    }
+
+    public Map<String, Object> getPlayerData() {
+        return playerData;
     }
 }

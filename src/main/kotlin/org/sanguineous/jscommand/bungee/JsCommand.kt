@@ -7,8 +7,8 @@ import java.io.File
 import java.util.*
 
 class JsCommand : Plugin() {
-
     private var commands = mutableListOf<JavascriptCommand>()
+    val playerData = HashMap<String, Any>()
 
     override fun onEnable() {
         loadCommands()
