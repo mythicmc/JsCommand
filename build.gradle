@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
 }
 
 group 'org.sanguineous'
@@ -22,10 +21,4 @@ dependencies {
     compileOnly 'net.md-5:bungeecord-api:1.17-R0.1-SNAPSHOT'
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'com.velocitypowered:velocity-api:3.0.1'
-}
-
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = 11
-    }
 }
