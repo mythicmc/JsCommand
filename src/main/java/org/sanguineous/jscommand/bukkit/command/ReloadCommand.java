@@ -16,13 +16,20 @@ public class ReloadCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 1 && args[0].equalsIgnoreCase("reload") &&
-                sender.hasPermission("jscommand.reload")) {
-            try {
-                plugin.loadCommands();
-                sender.sendMessage("Successfully reloaded commands");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+        if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("reload") &&
+                    sender.hasPermission("jscommand.reload")) {
+                try {
+                    plugin.loadCommands();
+                    sender.sendMessage("Successfully reloaded commands");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (args[0].equalsIgnoreCase("resetplayerdata") &&
+                    sender.hasPermission("jscommand.reload")) {
+                plugin.getPlayerData().clear();
+                sender.sendMessage("Successfully reset playerData");
             }
         }
         return true;

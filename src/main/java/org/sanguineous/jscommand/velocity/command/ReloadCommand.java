@@ -21,13 +21,20 @@ public class ReloadCommand implements SimpleCommand {
     @Override
     public void execute(Invocation invocation) {
         String[] args = invocation.arguments();
-        if (args.length == 1 && args[0].equalsIgnoreCase("reload") &&
-                invocation.source().hasPermission("jscommand.reload")) {
-            try {
-                plugin.loadCommands();
-                invocation.source().sendMessage(Component.text("Successfully reload commands"));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+        if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("reload") &&
+                    invocation.source().hasPermission("jscommand.reload")) {
+                try {
+                    plugin.loadCommands();
+                    invocation.source().sendMessage(Component.text("Successfully reload commands"));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (args[0].equalsIgnoreCase("resetplayerdata") &&
+                    invocation.source().hasPermission("jscommand.reload")) {
+                plugin.getPlayerData().clear();
+                invocation.source().sendMessage(Component.text("Successfully reset playerData"));
             }
         }
     }

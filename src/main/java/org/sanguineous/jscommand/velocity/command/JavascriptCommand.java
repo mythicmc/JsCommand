@@ -1,6 +1,8 @@
 package org.sanguineous.jscommand.velocity.command;
 
 import com.velocitypowered.api.command.SimpleCommand;
+import com.velocitypowered.api.proxy.ConsoleCommandSource;
+import com.velocitypowered.api.proxy.Player;
 import org.mozilla.javascript.engine.RhinoScriptEngineFactory;
 import org.sanguineous.jscommand.common.adapter.adventure.*;
 import org.sanguineous.jscommand.velocity.JsCommand;
@@ -42,7 +44,8 @@ public class JavascriptCommand implements SimpleCommand {
         engine.put("sender", invocation.source());
         engine.put("invocation", invocation);
         engine.put("plugin", plugin);
-        engine.put("Class", Class.class);
+        engine.put("args", invocation.arguments());
+        engine.put("isConsole", !(invocation.source() instanceof Player));
         engine.put("Component", new ComponentAdapter());
         engine.put("NamedTextColor", new NamedTextColorAdapter());
         engine.put("TextColor", new TextColorAdapter());

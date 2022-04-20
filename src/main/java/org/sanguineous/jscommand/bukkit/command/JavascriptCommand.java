@@ -6,6 +6,7 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.mozilla.javascript.engine.RhinoScriptEngineFactory;
 import org.sanguineous.jscommand.bukkit.JsCommand;
+import org.sanguineous.jscommand.common.adapter.adventure.*;
 
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -31,10 +32,13 @@ public class JavascriptCommand extends BukkitCommand {
         var engine = manager.getEngineByName("rhino");
         engine.put("sender", sender);
         engine.put("plugin", plugin);
-        engine.put("Bukkit", Bukkit.class);
-        engine.put("Class", Class.class);
         engine.put("args", args);
         engine.put("isConsole", !(sender instanceof Player));
+        engine.put("Component", new ComponentAdapter());
+        engine.put("NamedTextColor", new NamedTextColorAdapter());
+        engine.put("TextColor", new TextColorAdapter());
+        engine.put("ClickEvent", new ClickEventAdapter());
+        engine.put("HoverEvent", new HoverEventAdapter());
         try {
             engine.eval(contents);
         } catch (ScriptException e) {
