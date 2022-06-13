@@ -3,6 +3,7 @@ package org.sanguineous.jscommand.bukkit;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.graalvm.polyglot.Context;
 import org.sanguineous.jscommand.bukkit.command.JavascriptCommand;
 import org.sanguineous.jscommand.bukkit.command.ReloadCommand;
 import org.sanguineous.jscommand.bukkit.listener.PlayerLeaveListener;
@@ -18,6 +19,8 @@ public class JsCommand extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        Thread.currentThread().setContextClassLoader(Context.class.getClassLoader());
+        System.setProperty("polyglot.engine.WarnInterpreterOnly", "false");
         try {
             loadCommands();
         } catch (FileNotFoundException e) {

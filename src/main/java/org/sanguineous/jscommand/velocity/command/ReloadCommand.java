@@ -15,7 +15,7 @@ public class ReloadCommand implements SimpleCommand {
 
     @Override
     public boolean hasPermission(Invocation invocation) {
-        return true;
+        return invocation.source().hasPermission("jscommand.reload");
     }
 
     @Override

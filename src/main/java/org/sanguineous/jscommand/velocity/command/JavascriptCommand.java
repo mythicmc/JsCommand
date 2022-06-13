@@ -1,17 +1,16 @@
 package org.sanguineous.jscommand.velocity.command;
 
 import com.velocitypowered.api.command.SimpleCommand;
-import com.velocitypowered.api.proxy.ConsoleCommandSource;
 import com.velocitypowered.api.proxy.Player;
-import org.mozilla.javascript.engine.RhinoScriptEngineFactory;
+import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.HostAccess;
+import org.graalvm.polyglot.Value;
 import org.sanguineous.jscommand.common.adapter.adventure.*;
 import org.sanguineous.jscommand.velocity.JsCommand;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class JavascriptCommand implements SimpleCommand {
     private final String name;
@@ -30,7 +29,7 @@ public class JavascriptCommand implements SimpleCommand {
 
     @Override
     public boolean hasPermission(Invocation invocation) {
-        return true;
+        return invocation.source().hasPermission("jscommand.command."+name);
     }
 
     @Override
@@ -38,24 +37,16 @@ public class JavascriptCommand implements SimpleCommand {
         if (!invocation.source().hasPermission("jscommand.command."+name))
             return;
 
-        ScriptEngineManager manager = new ScriptEngineManager();
-        manager.registerEngineName("rhino", new RhinoScriptEngineFactory());
-        ScriptEngine engine = manager.getEngineByName("rhino");
-        engine.put("sender", invocation.source());
-        engine.put("invocation", invocation);
-        engine.put("plugin", plugin);
-        engine.put("args", invocation.arguments());
-        engine.put("isConsole", !(invocation.source() instanceof Player));
-        engine.put("Component", new ComponentAdapter());
-        engine.put("NamedTextColor", new NamedTextColorAdapter());
-        engine.put("TextColor", new TextColorAdapter());
-        engine.put("ClickEvent", new ClickEventAdapter());
-        engine.put("HoverEvent", new HoverEventAdapter());
-
-        try {
-            engine.eval(contents);
-        } catch (ScriptException e) {
-            e.printStackTrace();
-        }
+        Context context = Context.newBuilder("js")
+                .allowHostAccess(HostAccess.ALL)
+                .allowHostClassLookup(className -> true)
+                .build();
+        Value value = context.getBindings("js");
+        value.putMember("sender", invocation.source());
+        value.putMember("invocation", invocation);
+        value.putMember("plugin", plugin);
+        value.putMember("args", invocation.arguments());
+        value.putMember("isConsole", !(invocation.source() instanceof Player));
+        context.eval("js", contents);
     }
 }

@@ -18,6 +18,8 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: "lib", includes: ["*.jar"])
+    implementation "org.graalvm.sdk:graal-sdk:22.1.0.1"
+    implementation "org.graalvm.js:js:22.1.0.1"
     compileOnly 'net.md-5:bungeecord-api:1.17-R0.1-SNAPSHOT'
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'com.velocitypowered:velocity-api:3.0.1'

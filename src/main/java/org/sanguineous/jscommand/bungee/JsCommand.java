@@ -2,6 +2,7 @@ package org.sanguineous.jscommand.bungee;
 
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
+import org.graalvm.polyglot.Context;
 import org.sanguineous.jscommand.bungee.command.JavascriptCommand;
 import org.sanguineous.jscommand.bungee.command.ReloadCommand;
 import org.sanguineous.jscommand.bungee.listener.PlayerLeaveListener;
@@ -19,6 +20,8 @@ public class JsCommand extends Plugin {
 
     @Override
     public void onEnable() {
+        Thread.currentThread().setContextClassLoader(Context.class.getClassLoader());
+        System.setProperty("polyglot.engine.WarnInterpreterOnly", "false");
         try {
             loadCommands();
         } catch (FileNotFoundException e) {

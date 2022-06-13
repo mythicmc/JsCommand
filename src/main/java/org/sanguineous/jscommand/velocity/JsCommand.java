@@ -6,6 +6,7 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import org.graalvm.polyglot.Context;
 import org.sanguineous.jscommand.velocity.command.JavascriptCommand;
 import org.sanguineous.jscommand.velocity.command.ReloadCommand;
 import org.sanguineous.jscommand.velocity.listener.PlayerLeaveListener;
@@ -33,6 +34,8 @@ public class JsCommand {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
+        Thread.currentThread().setContextClassLoader(Context.class.getClassLoader());
+        System.setProperty("polyglot.engine.WarnInterpreterOnly", "false");
         try {
             loadCommands();
         } catch (FileNotFoundException e) {
