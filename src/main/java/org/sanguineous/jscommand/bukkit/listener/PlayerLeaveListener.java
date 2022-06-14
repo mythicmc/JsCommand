@@ -6,7 +6,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.sanguineous.jscommand.bukkit.JsCommand;
 
 public class PlayerLeaveListener implements Listener {
-    private JsCommand plugin;
+    private final JsCommand plugin;
 
     public PlayerLeaveListener(JsCommand plugin) {
         this.plugin = plugin;

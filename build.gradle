@@ -17,7 +17,6 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(dir: "lib", includes: ["*.jar"])
     implementation "org.graalvm.sdk:graal-sdk:22.1.0.1"
     implementation "org.graalvm.js:js:22.1.0.1"
     compileOnly 'net.md-5:bungeecord-api:1.17-R0.1-SNAPSHOT'

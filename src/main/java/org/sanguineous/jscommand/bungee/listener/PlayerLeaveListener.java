@@ -6,7 +6,7 @@ import net.md_5.bungee.event.EventHandler;
 import org.sanguineous.jscommand.bungee.JsCommand;
 
 public class PlayerLeaveListener implements Listener {
-    private JsCommand plugin;
+    private final JsCommand plugin;
 
     public PlayerLeaveListener(JsCommand plugin) {
         this.plugin = plugin;

@@ -3,7 +3,6 @@ package org.sanguineous.jscommand.bukkit;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.graalvm.polyglot.Context;
 import org.sanguineous.jscommand.bukkit.command.JavascriptCommand;
 import org.sanguineous.jscommand.bukkit.command.ReloadCommand;
 import org.sanguineous.jscommand.bukkit.listener.PlayerLeaveListener;
@@ -14,12 +13,11 @@ import java.util.*;
 
 public class JsCommand extends JavaPlugin {
     private final HashMap<String, Object> playerData = new HashMap<>();
-    private final List<JavascriptCommand> commands = new ArrayList<>();
+    private final HashMap<String, JavascriptCommand> commands = new HashMap<>();
     private final CommandMap commandMap = Bukkit.getCommandMap();
 
     @Override
     public void onEnable() {
-        Thread.currentThread().setContextClassLoader(Context.class.getClassLoader());
         System.setProperty("polyglot.engine.WarnInterpreterOnly", "false");
         try {
             loadCommands();
@@ -37,11 +35,11 @@ public class JsCommand extends JavaPlugin {
     public void loadCommands() throws FileNotFoundException {
         if (!getDataFolder().exists())
             getDataFolder().mkdir();
-        File dir = new File(getDataFolder(), "scripts");
+        File dir = new File(getDataFolder(), "commands");
         if (!dir.exists())
             dir.mkdir();
         File[] files = dir.listFiles();
-        for (JavascriptCommand command : commands) {
+        for (JavascriptCommand command : commands.values()) {
             command.unregister(commandMap);
             commandMap.getKnownCommands().remove(command.getName());
         }
@@ -56,7 +54,7 @@ public class JsCommand extends JavaPlugin {
                 contents.append(scanner.nextLine()).append("\n");
             }
             JavascriptCommand command = new JavascriptCommand(fileName, contents.toString(), this);
-            commands.add(command);
+            commands.put(fileName, command);
             commandMap.register(fileName, command);
         }
     }

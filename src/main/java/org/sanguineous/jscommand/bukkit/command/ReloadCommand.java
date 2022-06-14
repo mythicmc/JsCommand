@@ -8,7 +8,7 @@ import org.sanguineous.jscommand.bukkit.JsCommand;
 import java.io.FileNotFoundException;
 
 public class ReloadCommand implements CommandExecutor {
-    private JsCommand plugin;
+    private final JsCommand plugin;
 
     public ReloadCommand(JsCommand plugin) {
         this.plugin = plugin;
@@ -17,8 +17,7 @@ public class ReloadCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("reload") &&
-                    sender.hasPermission("jscommand.reload")) {
+            if (args[0].equalsIgnoreCase("reload")) {
                 try {
                     plugin.loadCommands();
                     sender.sendMessage("Successfully reloaded commands");
@@ -26,8 +25,7 @@ public class ReloadCommand implements CommandExecutor {
                     e.printStackTrace();
                 }
             }
-            if (args[0].equalsIgnoreCase("resetplayerdata") &&
-                    sender.hasPermission("jscommand.reload")) {
+            if (args[0].equalsIgnoreCase("resetplayerdata")) {
                 plugin.getPlayerData().clear();
                 sender.sendMessage("Successfully reset playerData");
             }

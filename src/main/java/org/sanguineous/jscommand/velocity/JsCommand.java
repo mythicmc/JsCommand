@@ -6,7 +6,6 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
-import org.graalvm.polyglot.Context;
 import org.sanguineous.jscommand.velocity.command.JavascriptCommand;
 import org.sanguineous.jscommand.velocity.command.ReloadCommand;
 import org.sanguineous.jscommand.velocity.listener.PlayerLeaveListener;
@@ -15,14 +14,16 @@ import org.slf4j.Logger;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Scanner;
+
 
 @Plugin(id = "jscommand", name = "JsCommand", version = "1.0.0")
 public class JsCommand {
     private final File dataFolder;
     private final ProxyServer server;
     private final Logger logger;
-    private final List<JavascriptCommand> commands = new ArrayList<>();
+    private final HashMap<String, JavascriptCommand> commands = new HashMap<>();
     private final HashMap<String, Object> playerData = new HashMap<>();
 
     @Inject
@@ -34,7 +35,6 @@ public class JsCommand {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
-        Thread.currentThread().setContextClassLoader(Context.class.getClassLoader());
         System.setProperty("polyglot.engine.WarnInterpreterOnly", "false");
         try {
             loadCommands();
@@ -48,11 +48,11 @@ public class JsCommand {
     public void loadCommands() throws FileNotFoundException {
         if (!dataFolder.exists())
             dataFolder.mkdir();
-        File dir = new File(dataFolder, "scripts");
+        File dir = new File(dataFolder, "commands");
         if (!dir.exists())
             dir.mkdir();
         File[] files = dir.listFiles();
-        for (JavascriptCommand command : commands) {
+        for (JavascriptCommand command : commands.values()) {
             server.getCommandManager().unregister(command.getName());
         }
         commands.clear();
@@ -70,7 +70,7 @@ public class JsCommand {
             }
             JavascriptCommand command = new JavascriptCommand(fileName, contents.toString(), this);
             server.getCommandManager().register(fileName, command);
-            commands.add(command);
+            commands.put(fileName, command);
         }
     }
 

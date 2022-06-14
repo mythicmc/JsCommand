@@ -5,7 +5,7 @@ import com.velocitypowered.api.event.connection.DisconnectEvent;
 import org.sanguineous.jscommand.velocity.JsCommand;
 
 public class PlayerLeaveListener {
-    private JsCommand plugin;
+    private final JsCommand plugin;
 
     public PlayerLeaveListener(JsCommand plugin) {
         this.plugin = plugin;

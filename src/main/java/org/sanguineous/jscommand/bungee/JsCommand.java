@@ -1,26 +1,21 @@
 package org.sanguineous.jscommand.bungee;
 
-import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
-import org.graalvm.polyglot.Context;
 import org.sanguineous.jscommand.bungee.command.JavascriptCommand;
 import org.sanguineous.jscommand.bungee.command.ReloadCommand;
 import org.sanguineous.jscommand.bungee.listener.PlayerLeaveListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class JsCommand extends Plugin {
     private final HashMap<String, Object> playerData = new HashMap<>();
-    private final List<JavascriptCommand> commands = new ArrayList<>();
+    private final HashMap<String, JavascriptCommand> commands = new HashMap<>();
 
     @Override
     public void onEnable() {
-        Thread.currentThread().setContextClassLoader(Context.class.getClassLoader());
         System.setProperty("polyglot.engine.WarnInterpreterOnly", "false");
         try {
             loadCommands();
@@ -34,11 +29,11 @@ public class JsCommand extends Plugin {
     public void loadCommands() throws FileNotFoundException {
         if (!getDataFolder().exists())
             getDataFolder().mkdir();
-        File dir = new File(getDataFolder(), "scripts");
+        File dir = new File(getDataFolder(), "commands");
         if (!dir.exists())
             dir.mkdir();
         File[] files = dir.listFiles();
-        for (JavascriptCommand command : commands) {
+        for (JavascriptCommand command : commands.values()) {
             getProxy().getPluginManager().unregisterCommand(command);
         }
         commands.clear();
@@ -54,7 +49,7 @@ public class JsCommand extends Plugin {
                 contents.append(scanner.nextLine()).append("\n");
             JavascriptCommand command = new JavascriptCommand(this, fileName, contents.toString());
             getProxy().getPluginManager().registerCommand(this, command);
-            commands.add(command);
+            commands.put(fileName, command);
         }
     }
 
