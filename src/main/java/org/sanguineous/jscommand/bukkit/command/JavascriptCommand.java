@@ -9,8 +9,6 @@ import org.graalvm.polyglot.HostAccess;
 import org.graalvm.polyglot.Value;
 import org.sanguineous.jscommand.bukkit.JsCommand;
 
-import java.awt.*;
-
 public class JavascriptCommand extends BukkitCommand {
     private final String name;
     private final String contents;

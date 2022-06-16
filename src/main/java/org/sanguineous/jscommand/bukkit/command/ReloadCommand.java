@@ -20,7 +20,8 @@ public class ReloadCommand implements CommandExecutor {
             if (args[0].equalsIgnoreCase("reload")) {
                 try {
                     plugin.loadCommands();
-                    sender.sendMessage("Successfully reloaded commands");
+                    plugin.loadListeners();
+                    sender.sendMessage("Successfully reloaded commands and listeners");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
