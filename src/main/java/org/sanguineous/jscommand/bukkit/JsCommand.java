@@ -82,9 +82,12 @@ public class JsCommand extends JavaPlugin {
             while (scanner.hasNextLine()) {
                 contents.append(scanner.nextLine()).append("\n");
             }
-            JavascriptListener listener = new JavascriptListener(contents.toString(), this);
+            JavascriptListener listener = new JavascriptListener(fileName, contents.toString(), this);
             listener.register();
-            listeners.put(fileName, listener);
         }
+    }
+
+    public HashMap<String, JavascriptListener> getListeners() {
+        return listeners;
     }
 }
