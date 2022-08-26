@@ -6,8 +6,8 @@ plugins {
 group 'org.sanguineous'
 version '1.0.0'
 
-sourceCompatibility = 11
-targetCompatibility = 11
+sourceCompatibility = 17
+targetCompatibility = 17
 
 repositories {
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }

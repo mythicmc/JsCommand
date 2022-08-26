@@ -39,15 +39,16 @@ public class JavascriptListener implements Listener {
     }
 
     public void register() {
+        String[] split = contents.substring(2, contents.indexOf("\n")).strip().split("\\s+");
         try {
-            this.handlerList = (HandlerList) Class.forName(contents.substring(2, contents.indexOf("\n")).strip())
+            this.handlerList = (HandlerList) Class.forName(split[0])
                     .getMethod("getHandlerList").invoke(null);
             handlerList.register(new RegisteredListener(this, (listener, event) -> execute(event),
-                    EventPriority.NORMAL, plugin, false));
+                    split.length == 2 ? EventPriority.valueOf(split[1]) : EventPriority.NORMAL, plugin, false));
             plugin.getListeners().put(fileName, this);
         } catch (Exception e) {
             plugin.getLogger().severe("Failed to register listener " + fileName + " on event "
-                    + contents.substring(2, contents.indexOf("\n")).strip());
+                    + split[0]);
             e.printStackTrace();
         }
     }
